@@ -1,0 +1,43 @@
+//- ------------------------------
+extends ./_partial/default
+//- ------------------------------
+
+
+block content
+
+  #wrapper
+    p.header
+      ヘッダー
+
+    ul.test
+      - for (var i =0; i < 10; i++){
+        li(class='aaa'+i) aa
+      - }
+    // ul.test END
+
+
+    //出力される
+    //- 出力されない
+
+
+    //
+      複数行
+      複数行
+    //--
+    //- ここからコンテンツ1
+    p あいうえお
+    p #{newTitle}
+
+    //- ##################################
+
+    p さしすせそ
+
+    - var text = "<p>Testです</p>"
+
+    !{text} あいうあおえ
+  // #wrapper END 
+
+  include ./_partial/inc_footer
+    p aa
+    p aaa
+
