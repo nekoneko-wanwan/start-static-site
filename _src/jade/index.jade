@@ -1,24 +1,24 @@
 //- ------------------------------
 extends ./_partial/default
+
 //- ------------------------------
 
+block title
+  title #{lang.title.ja}
 
 block content
-
   #wrapper
-    p.header
-      ヘッダー
 
     ul.test
-      - for (var i =0; i < 10; i++){
+      - for (var i = 0; i < 10; i++){
         li(class='aaa'+i) aa
       - }
     // ul.test END
 
-
-    //出力される
-    //- 出力されない
-
+    ul.newItems
+      - for (var i = 0; i < prod.newItems.length; i++){
+        li 最新アイテム -> #{prod.newItems[i]}
+      -}
 
     //
       複数行

@@ -1,3 +1,9 @@
+//- ------------------------------
+//- 全ページで使用するグローバル変数の指定
+- var authenticated = true
+  //- body(class=authenticated ? 'authed' : 'anon')のように使用
+
+//- ------------------------------
 doctype
 html(lang = "ja")
   head
@@ -6,8 +12,6 @@ html(lang = "ja")
       title Jade
     block stylesheets
       script(src = "")
-
-
 
   body
     block content

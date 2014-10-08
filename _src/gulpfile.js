@@ -2,6 +2,7 @@
  * gulpやプラグインのインポート
  *********************************************/
 var _gulp       = require('gulp');
+var _data       = require('gulp-data');
 var _webserver  = require('gulp-webserver');
 var _livereload = require('gulp-livereload');
 var _jade       = require('gulp-jade');
@@ -53,6 +54,10 @@ _gulp.task('webserver', function() {
  *********************************************/
 _gulp.task('jade', function() {
     _gulp.src(config.path.dev.JADE)
+    .pipe(_data(function(file) {
+        //読み込むjsonファイル
+        return require('./jade/contents.json');
+    }))
     .pipe(_plumber())  //エラーが出てもwatchを止めない
     .pipe(_jade({
         pretty: true
