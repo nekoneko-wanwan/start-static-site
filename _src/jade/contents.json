@@ -8,6 +8,10 @@
       "description": {
         "ja": "サイトの説明です",
         "en": "This is site description"
+      },
+      "keywords": {
+        "ja": "キーワード, キーワード, キーワード",
+        "en": "keyword, keyword, keyword"
       }
     },
   "prod":

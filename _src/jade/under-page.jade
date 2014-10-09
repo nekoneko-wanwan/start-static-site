@@ -4,15 +4,25 @@ extends _partial/default
 
 
 //-******************************
-//-head内要素の上書き or 追加
+//- head内要素の上書き or 追加
 block title
-	title ホーム | #{lang.title.ja}
+	title 下層 | #{lang.title.ja}
 
 block append stylesheets
 	link(rel='stylesheets' src='/common/css/top.css')
 
 block append script
 	script(src='/common/js/top.js')
+//-******************************
+
+
+//-******************************
+//- topicPathの上書き
+block topicPath
+	include _partial/inc_topicPath
+		li
+			a(href='/xxx/')下層その1
+		li 下層その2
 //-******************************
 
 
@@ -36,4 +46,10 @@ block content
 	!{text}あいうあおえ
 
 
+//-******************************
+
+
+//-******************************
+//- footScriptの追加
+block append footScript
 //-******************************

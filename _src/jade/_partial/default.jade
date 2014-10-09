@@ -1,21 +1,42 @@
-//- ------------------------------
+//-******************************
 //- 全ページで使用するグローバル変数の指定
-- var authenticated = true
-  //- body(class=authenticated ? 'authed' : 'anon')のように使用
+	//- - var authenticated = true
+	//- body(class=authenticated ? 'authed' : 'anon')のように使用
 
-//- ------------------------------
+	//- block全てを書き換えたくない場合は 読み出し元でblock append(prepend)
+
+//-******************************
+
 doctype
 html(lang = "ja")
-  head
-    meta(charset = "UTF-8")
-    block title
-      title Jade
-    block stylesheets
-      script(src = "")
+	head
+		meta(charset = "utf-8")
 
-  body
-    block content
-    block scripts
-      script(src = "")
+		//- title
+		block title
+			title #{lang.title.ja}
 
+		//- meta
+		block meta
+			meta(name='description', content='#{lang.description.ja}')
+			meta(name='keywords', content='#{lang.keywords.ja}')
 
+		//- stylesheets
+		block stylesheets
+			link(rel='stylesheets' src='/common/css/styles.css')
+
+		//- script
+		block headScript
+
+	body
+		include inc_header
+
+		div.l-contents
+			block topicPath
+			block content
+		// /.l-contents END
+
+		include inc_footer
+
+		block footScript
+			script(src='ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')

@@ -7,6 +7,7 @@ var _webserver  = require('gulp-webserver');
 var _livereload = require('gulp-livereload');
 var _jade       = require('gulp-jade');
 var _compass    = require('gulp-compass');
+var _coffee     = require('gulp-coffee');
 var _plumber    = require('gulp-plumber');
 
 
@@ -20,14 +21,16 @@ var config = {
     path : {
         //開発用
         dev  : {
-            SCSS : 'scss/**/*.scss',
-            JADE : ['jade/**/*.jade', '!jade/_partial/**/*.jade'],  //htmlとして書き出す対象(_partialを除外)
+            SCSS   : 'scss/**/*.scss',
+            COFFEE : 'coffee/**/*.coffee',
+            JADE   : ['jade/**/*.jade', '!jade/_partial/**/*.jade'],  //htmlとして書き出す対象(_partialを除外)
             JADE_WATCH : 'jade/**/*.jade'  //監視する対象
         },
         //公開用
         deploy : {
             CSS  : '../deploy/common/css/',
-            HTML : '../deploy/'
+            HTML : '../deploy/',
+            JS   : '../deploy/common/js/'
         }
     }
 };
@@ -89,13 +92,26 @@ _gulp.task('compass', function() {
 
 
 /*********************************************
+ * coffeeScriptの設定
+ *********************************************/
+_gulp.task('coffee', function() {
+    _gulp.src(config.path.dev.COFFEE)
+    .pipe(_plumber())  //エラーが出てもwatchを止めない
+    .pipe(_coffee())
+    .pipe(_gulp.dest(config.path.deploy.JS));
+});
+
+
+
+/*********************************************
  * watchの設定
  *********************************************/
 _gulp.task('watch', function() {
     _livereload.listen();
 
-    _gulp.watch(config.path.dev.SCSS, ['compass']);
     _gulp.watch(config.path.dev.JADE_WATCH, ['jade']);
+    _gulp.watch(config.path.dev.SCSS, ['compass']);
+    _gulp.watch(config.path.dev.COFFEE, ['coffee']);
 });
 
 
@@ -104,7 +120,7 @@ _gulp.task('watch', function() {
 /*********************************************
  * 実行 -> gulp all
  *********************************************/
-_gulp.task('all', ['webserver', 'watch', 'compass', 'jade']);
+_gulp.task('all', ['webserver', 'jade', 'compass', 'coffee', 'watch']);
 
 
 
