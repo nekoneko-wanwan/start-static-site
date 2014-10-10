@@ -1,5 +1,5 @@
 //-******************************
-extends _partial/default
+extends _utility/default
 //-******************************
 
 
@@ -17,6 +17,13 @@ block append script
 
 
 //-******************************
+//-header要素の上書き or 追加
+block prepend header
+	-var isTopPage = true
+//-******************************
+
+
+//-******************************
 //- .l-contents内要素の作成
 block content
 
@@ -30,10 +37,11 @@ block content
 			li 最新アイテム -> #{prod.newItems[i]}
 		-}
 
+	p aa
 
 	//- エスケープ
 	- var text = "<p>Testです</p>"
-	!{text}あいうあおえ
+	div!= text + '<p>あいうあおえ</p>'
 
 
 //-******************************

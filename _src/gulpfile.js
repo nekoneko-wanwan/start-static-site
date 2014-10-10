@@ -23,7 +23,7 @@ var config = {
         dev  : {
             SCSS   : 'scss/**/*.scss',
             COFFEE : 'coffee/**/*.coffee',
-            JADE   : ['jade/**/*.jade', '!jade/_partial/**/*.jade'],  //htmlとして書き出す対象(_partialを除外)
+            JADE   : ['jade/**/*.jade', '!jade/_*/**/*.jade'],  //htmlとして書き出す対象(_partialを除外)
             JADE_WATCH : 'jade/**/*.jade'  //監視する対象
         },
         //公開用
