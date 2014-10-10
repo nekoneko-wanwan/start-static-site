@@ -66,7 +66,7 @@ _gulp.task('jade', function() {
         pretty: true
     }))
     .pipe(_gulp.dest(config.path.deploy.HTML))
-    .pipe(_livereload({ auto: false }));
+    .pipe(_livereload({ auto: true }));
 });
 
 
@@ -83,7 +83,7 @@ _gulp.task('compass', function() {
         css: config.path.deploy.CSS,  //出力するcssのフォルダ場所
         sass: 'scss'  //sassファイルの場所
     }))
-    .pipe(_livereload({ auto: false }));
+    .pipe(_livereload({ auto: true }));
 
     //.pipe(_gulp.dest(''));  //他にも出力先を指定する場合
 });
