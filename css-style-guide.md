@@ -20,22 +20,22 @@ update: 2014/10/14
 ##SMACSSとBEMを基本コンセプトとする
 ###開発用ファイル構成
     -scss/
-        ├ component/   //プロジェクトに関係なく、再利用できる汎用性の高いパターン
-        │      ├ _utility-module.scss   //汎用的に使い回すモジュール ※Blockの接頭辞にu-を付与
-        │      └ _utility-single.scss   //汎用的に使い回す単体class  ※Blockの接頭辞にu-を付与（乱用注意）
+        ├ component/                    //プロジェクトに関係なく、再利用できる汎用性の高いパターン
+        │      ├ _utility-module.scss  //汎用的に使い回すモジュール ※Blockの接頭辞にu-を付与
+        │      └ _utility-single.scss  //汎用的に使い回す単体class  ※Blockの接頭辞にu-を付与（乱用注意）
         │
-        ├ foundation/  //プロジェクトの基本的な設定やベースとなる下地をまとめたもの
-        │      ├ _compass_prefix.scss   //compassでのprefix設定
-        │      ├ _setting.scss          //グローバル変数を設定
-        │      ├ _abstract.scss         //グローバル関数・mixinを設定
-        │      └ _base.scss             //主に要素セレクタに対する設定
+        ├ foundation/                   //プロジェクトの基本的な設定やベースとなる下地をまとめたもの
+        │      ├ _compass_prefix.scss  //compassでのprefix設定
+        │      ├ _setting.scss         //グローバル変数を設定
+        │      ├ _abstract.scss        //グローバル関数・mixinを設定
+        │      └ _base.scss            //主に要素セレクタに対する設定
         │
-        ├ project/     //プロジェクトで使用する共通パターン
-        │      ├ _layout.scss           //レイアウト（機能がユニークなもの）に対する設定 ※Blockの接頭辞にl-を付与
-        │      └ _module.scss           //プロジェクト固有の汎用モジュール ※Blockの接頭辞にm-を付与
+        ├ project/                      //プロジェクトで使用する共通パターン
+        │      ├ _layout.scss          //レイアウト（機能がユニークなもの）に対する設定 ※Blockの接頭辞にl-を付与
+        │      └ _module.scss          //プロジェクト固有の汎用モジュール ※Blockの接頭辞にm-を付与
         │
-        ├ style.scss                     //各スタイルを一括import
-        └ *.scss                         //特定のページで使うスタイル ex) -> top.scss ※接頭辞は不要
+        ├ style.scss                    //各スタイルを一括import
+        └ *.scss                        //特定のページで使うスタイル ex) -> top.scss ※接頭辞は不要
 
 ####補足
 * reset.cssはcompass/resetを使用
