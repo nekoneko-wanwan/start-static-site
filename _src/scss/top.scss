@@ -18,6 +18,14 @@
 
 
 /* -------------------------------------------
-
+responsive TEST
 ------------------------------------------- */
-
+body {
+	@include transition(all 3s);
+		@include mQuery_tablet {
+			background: blue;
+		}
+		@include mQuery_sp {
+			background: green;
+		}
+}
