@@ -9,6 +9,7 @@ var _jade       = require('gulp-jade');
 var _compass    = require('gulp-compass');
 var _coffee     = require('gulp-coffee');
 var _plumber    = require('gulp-plumber');
+var _rimraf     = require('gulp-rimraf');
 
 
 
@@ -16,22 +17,20 @@ var _plumber    = require('gulp-plumber');
 /*********************************************
  * 変数一覧
  *********************************************/
-//config
-var config = {
-    path : {
-        //開発用
-        dev  : {
-            SCSS   : 'scss/**/*.scss',
-            COFFEE : 'coffee/**/*.coffee',
-            JADE   : ['jade/**/*.jade', '!jade/_*/**/*.jade'],  //htmlとして書き出す対象(_partialを除外)
-            JADE_WATCH : 'jade/**/*.jade'  //監視する対象
-        },
-        //公開用
-        deploy : {
-            CSS  : '../deploy/common/css/',
-            HTML : '../deploy/',
-            JS   : '../deploy/common/js/'
-        }
+var path = {
+    //開発用
+    dev  : {
+        scss       : 'scss/**/*.scss',
+        coffee     : 'coffee/**/*.coffee',
+        jade       : ['jade/**/*.jade', '!jade/_*/**/*.jade'],  //htmlとして書き出す対象(_partialを除外)
+        jade_watch : 'jade/**/*.jade'  //監視する対象
+    },
+    //公開用
+    deploy : {
+        root : '../deploy/',
+        html : '../deploy/**/*.html',
+        css  : '../deploy/common/css/',
+        js   : '../deploy/common/js/'
     }
 };
 
@@ -42,7 +41,7 @@ var config = {
  * webサーバ
  *********************************************/
 _gulp.task('webserver', function() {
-    _gulp.src(config.path.deploy.HTML)  //ルートディレクトリ
+    _gulp.src(path.deploy.root)  //ルートディレクトリ
     .pipe(_webserver({
         // livereload: false
         //webserverのlivereloadが上手く動作しないため、別途livereloadプラグインを使う
@@ -56,7 +55,7 @@ _gulp.task('webserver', function() {
  * jadeの設定
  *********************************************/
 _gulp.task('jade', function() {
-    _gulp.src(config.path.dev.JADE)
+    _gulp.src(path.dev.jade)
     .pipe(_data(function(file) {
         //読み込むjsonファイル
         return require('./jade/contents.json');
@@ -65,7 +64,7 @@ _gulp.task('jade', function() {
     .pipe(_jade({
         pretty: true
     }))
-    .pipe(_gulp.dest(config.path.deploy.HTML))
+    .pipe(_gulp.dest(path.deploy.root))
     .pipe(_livereload({ auto: true }));
 });
 
@@ -76,11 +75,11 @@ _gulp.task('jade', function() {
  * compassの設定
  *********************************************/
 _gulp.task('compass', function() {
-    _gulp.src(config.path.dev.SCSS)
+    _gulp.src(path.dev.scss)
     .pipe(_plumber())  //エラーが出てもwatchを止めない
     .pipe(_compass({
         config_file: 'scss/config.rb',  //compassの設定ファイルの場所
-        css: config.path.deploy.CSS,  //出力するcssのフォルダ場所
+        css: path.deploy.css,  //出力するcssのフォルダ場所
         sass: 'scss'  //sassファイルの場所
     }))
     .pipe(_livereload({ auto: true }));
@@ -95,11 +94,12 @@ _gulp.task('compass', function() {
  * coffeeScriptの設定
  *********************************************/
 _gulp.task('coffee', function() {
-    _gulp.src(config.path.dev.COFFEE)
+    _gulp.src(path.dev.coffee)
     .pipe(_plumber())  //エラーが出てもwatchを止めない
     .pipe(_coffee())
-    .pipe(_gulp.dest(config.path.deploy.JS));
+    .pipe(_gulp.dest(path.deploy.js));
 });
+
 
 
 
@@ -109,18 +109,33 @@ _gulp.task('coffee', function() {
 _gulp.task('watch', function() {
     _livereload.listen();
 
-    _gulp.watch(config.path.dev.JADE_WATCH, ['jade']);
-    _gulp.watch(config.path.dev.SCSS, ['compass']);
-    _gulp.watch(config.path.dev.COFFEE, ['coffee']);
+    _gulp.watch(path.dev.jade_watch, ['jade']    );
+    _gulp.watch(path.dev.scss,       ['compass'] );
+    _gulp.watch(path.dev.coffee,     ['coffee']  );
 });
 
 
 
 
 /*********************************************
- * 実行 -> gulp all
+ * 基本実行
+ * コマンド -> gulp
  *********************************************/
-_gulp.task('all', ['webserver', 'jade', 'compass', 'coffee', 'watch']);
+_gulp.task('default', ['webserver', 'jade', 'compass', 'coffee', 'watch']);
+
+
+
+
+/*********************************************
+ * ファイルの削除
+ * 
+ * コマンド -> gulp del
+ *********************************************/
+_gulp.task('del', function() {
+    return _gulp.src([path.deploy.html, path.deploy.js, path.deploy.css], { read: false }) // much faster
+           .pipe(_rimraf({ force: true }));
+});
+
 
 
 
