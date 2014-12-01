@@ -134,6 +134,7 @@ $ic_arrowSet_mt: 0;
 
 //グラデーション
 //vertical, horizontal, radial
+//複雑なものはlibのsuper-gradient.scssを使用する
 @mixin gradient($start-color, $end-color, $orientation) {
 	background: $start-color;
 		@if $orientation == vertical {
