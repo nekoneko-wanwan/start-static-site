@@ -1,8 +1,6 @@
 [TOC]
 
 #個人的CSSスタイルガイド案
-create: 2014/07/04  
-update: 2014/10/14
 
 
 ##はじめに
@@ -104,7 +102,7 @@ update: 2014/10/14
     .block__element {
       &.is-modifier {  //Element自身のModifier
       }
-      .has-modifier & { //BlockのModifierによるElementの変化
+      .block.has-modifier & { //BlockのModifierによるElementの変化
       }
     }
 * BlockのModifierに対してElementに変化がある場合に親参照ができなく記述が増えてしまうため
