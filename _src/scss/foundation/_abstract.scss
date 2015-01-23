@@ -195,3 +195,9 @@ $ic_arrowSet_mt: 0;
 		@content;
 	}
 }
+
+// 実際に使う場合
+// Smartphone
+@include mQuery_sp {
+	display: none;
+}
