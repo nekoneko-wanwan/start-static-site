@@ -24,18 +24,6 @@
 	}
 }
 
-/* icon_arrow */
-//下部のmixinと連動
-%ex_ic_arrowSet {
-	@include inline-block;
-	background-image: url(../img/ic_arrow_set.png);
-	content: '';
-	margin: 5px 5px 0 0;
-	overflow: hidden;
-	vertical-align: top;
-}
-
-
 
 
 //-------------------------------------------
@@ -69,11 +57,22 @@ $ic_arrowSet_w : 0 !default;
 $ic_arrowSet_mt: 0;
 
 // 使い方
-// @include ic_arrowSet('before','2','black');
-// /common/img/にic_arrow_set.pngが入っている前提 *変更があればextendの方を変える
-@mixin ic_arrowSet($direction:'before', $type:'1', $color:'black' ) {
+// @include ic_arrowSet('before','2','black', '5px 5px 0 0');
+@mixin ic_arrowSet($direction:'before', $type:'1', $color:'black', $margin: 5px 5px 0 0 ) {
+	$ic_arrowSet_posX : 0 !default;
+	$ic_arrowSet_posY : 0 !default;
+	$ic_arrowSet_h : 0 !default;
+	$ic_arrowSet_w : 0 !default;
+	$ic_arrowSet_mt: 0;
+
 	&:#{$direction} {
-		@extend %ex_ic_arrowSet;
+		display: inline-block;
+		background-image: url(/common/img/ic_arrow-set.png);
+		content: '';
+		margin: $margin;
+		overflow: hidden;
+		vertical-align: top;
+
 		@if($type == '1') {
 			$ic_arrowSet_posY: 0;
 			$ic_arrowSet_h: 11px;
@@ -99,11 +98,11 @@ $ic_arrowSet_mt: 0;
 			$ic_arrowSet_posX: 0;
 		} @else if($color == 'gray') {
 			$ic_arrowSet_posX: -20px;
-		} @else if($color == 'blue1') {
+		} @else if($color == 'brown') {
 			$ic_arrowSet_posX: -40px;
-		} @else if($color == 'blue2') {
+		} @else if($color == 'blue') {
 			$ic_arrowSet_posX: -60px;
-		} @else if($color == 'pink') {
+		} @else if($color == 'red') {
 			$ic_arrowSet_posX: -80px;
 		} @else if($color == 'white') {
 			$ic_arrowSet_posX: -100px;
